@@ -9,13 +9,13 @@
     width: max-content;
     height: max-content;
     right: 0%;
-    top: 0%;
+    top: 22%;
     z-index: 10;
 }
 
 .btnMudi3D {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     position: relative;
     cursor: pointer;
     transition: all .2s ease-in-out;
@@ -213,6 +213,15 @@
         color: white;
         transition: all .2s ease-in-out;
         transform: scale(.9);
+    }
+
+    .btnsMudiContainer {
+        position: absolute;
+        width: max-content;
+        height: max-content;
+        right: 0%;
+        top: 22%;
+        z-index: 10;
     }
 }
 
