@@ -325,7 +325,7 @@ if(typeof MudiExperience == "undefined"){
 
     const mudiExperience = new MudiExperience();
     setTimeout(()=>{
-        mudiExperience.experienceOn( document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(' ')[1] , document.body.querySelector('.swiper'));
+        mudiExperience.experienceOn( document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(':')[1] , document.body.querySelector('.swiper'));
     },3000)
     
     // number SKU document.body.querySelector('.product-title_product-title__specification__B5pYV').innerText.split(':')[1]
