@@ -326,7 +326,7 @@ if(typeof MudiExperience == "undefined"){
     const mudiExperience = new MudiExperience();
     setTimeout(()=>{
         mudiExperience.experienceOn( document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(':')[1].trim() , document.body.querySelector('.swiper'));
-    },900)
+    },0)
 
 };
 
