@@ -272,8 +272,8 @@ if(typeof MudiExperience == "undefined"){
                 event: `Evento de interaccion ${eventName}`,
                 valorMudi: 1,
                 sku: this.skuNumber,
-                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
-                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[3].text,
+                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[1].text,
+                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
                 sistemaOperativo: OSdevice
             })
         };
@@ -290,8 +290,8 @@ if(typeof MudiExperience == "undefined"){
                 event: `visualizacion_botones`,
                 valorMudi: 1,
                 sku: this.skuNumber,
-                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
-                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[3].text,
+                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[1].text,
+                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
                 sistemaOperativo: OSdevice
             })
         };
