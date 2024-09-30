@@ -323,10 +323,12 @@ if(typeof MudiExperience == "undefined"){
     
     };
 
-    const mudiExperience = new MudiExperience();
-    setTimeout(()=>{
-        mudiExperience.experienceOn( document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(':')[1].trim() , document.body.querySelector('.swiper'));
-    },0)
+   const mudiExperience = new MudiExperience();
+setTimeout(() => {
+    const text = document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(':')[1].trim();
+    const numbersOnly = text.replace(/\D/g, ''); // Reemplaza todo excepto dígitos con una cadena vacía
+    mudiExperience.experienceOn(numbersOnly, document.body.querySelector('.swiper'));
+}, 0);
 
 };
 
