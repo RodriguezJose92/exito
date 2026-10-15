@@ -1,4 +1,3 @@
-/** TEST A-B */
 if(typeof MudiExperience == "undefined"){
     
     /** Mudi Experience */
@@ -6,7 +5,7 @@ if(typeof MudiExperience == "undefined"){
     
         constructor(){
             this.color              = "#f27b2d";
-            this.dataSever          = null;
+            this.dataServer         = null; // Corregido el nombre de la variable
             this.skuNumber          = null;
             this.fatherContainer    = null;
         };
@@ -253,7 +252,8 @@ if(typeof MudiExperience == "undefined"){
             tooltip.innerHTML=`<b>¡Nuevo!</b> Descubre como se ve este producto en 3D y realidad aumentada en tu espacio`;
     
             setTimeout(()=>{
-                document.body.querySelector('.tooltipMudi').remove();
+                const tooltipNode = document.body.querySelector('.tooltipMudi');
+                if(tooltipNode) tooltipNode.remove();
             },9000)
     
             return tooltip;
@@ -268,12 +268,17 @@ if(typeof MudiExperience == "undefined"){
             else if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) OSdevice = "IOS";
             else OSdevice = 'DESK';
     
+            // Manejo preventivo de errores si no existen los breadcrumbs
+            const breadcrumbs = document.body.querySelectorAll('[data-breadcrumb-item="true"]');
+            const cat = breadcrumbs[1] ? breadcrumbs[1].innerText : "Sin categoria";
+            const subCat = breadcrumbs[2] ? breadcrumbs[2].innerText : "Sin subcategoria";
+
             window.dataLayer && dataLayer.push({
                 event: `Evento de interaccion ${eventName}`,
                 valorMudi: 1,
                 sku: this.skuNumber,
-                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[1].text,
-                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
+                category: cat,
+                subCategory: subCat,
                 sistemaOperativo: OSdevice
             })
         };
@@ -286,12 +291,17 @@ if(typeof MudiExperience == "undefined"){
             else if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) OSdevice = "IOS";
             else OSdevice = 'DESK';
     
+            // Manejo preventivo de errores si no existen los breadcrumbs
+            const breadcrumbs = document.body.querySelectorAll('[data-breadcrumb-item="true"]');
+            const cat = breadcrumbs[1] ? breadcrumbs[1].innerText : "Sin categoria";
+            const subCat = breadcrumbs[2] ? breadcrumbs[2].innerText : "Sin subcategoria";
+
             window.dataLayer && dataLayer.push({
                 event: `visualizacion_botones`,
                 valorMudi: 1,
                 sku: this.skuNumber,
-                category: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[1].text,
-                subCategory: document.body.querySelectorAll('[data-breadcrumb-item="true"]')[2].text,
+                category: cat,
+                subCategory: subCat,
                 sistemaOperativo: OSdevice
             })
         };
@@ -323,13 +333,48 @@ if(typeof MudiExperience == "undefined"){
     
     };
 
-   const mudiExperience = new MudiExperience();
-setTimeout(() => {
-    const text = document.body.querySelector('.product-title_product-title__specification__UTjNc').innerText.split(':')[1].trim();
-    const numbersOnly = text.replace(/\D/g, ''); // Reemplaza todo excepto dígitos con una cadena vacía
-    mudiExperience.experienceOn(numbersOnly, document.body.querySelector('.swiper'));
-}, 0);
+
+    // ----------------------------------------------------
+    // INICIO DE LA EXPERIENCIA (100% DEL TRÁFICO)
+    // ----------------------------------------------------
+    const mudiExperience = new MudiExperience();
+
+    // Aumentamos el tiempo a 2.5 segundos (2500ms) para esperar que React renderice el DOM
+    setTimeout(() => {
+        try {
+            console.log("MUDI: Iniciando búsqueda de elementos...");
+            
+            // 1. Buscar el título
+            const titleElement = document.body.querySelector('.product-title_product-title__specification__UTjNc');
+            if (!titleElement) {
+                console.warn("MUDI: No se encontró la clase del título del producto.");
+                return;
+            }
+            
+            // 2. Extraer el texto y el SKU
+            const textParts = titleElement.innerText.split(':');
+            if (textParts.length < 2) {
+                console.warn("MUDI: El formato del título no contiene ':' para extraer el SKU.", titleElement.innerText);
+                return;
+            }
+            
+            const numbersOnly = textParts[1].trim().replace(/\D/g, ''); 
+            console.log("MUDI: SKU detectado ->", numbersOnly);
+            
+            // 3. Buscar el contenedor padre
+            const fatherContainer = document.body.querySelector('.swiper');
+            if (!fatherContainer) {
+                console.warn("MUDI: No se encontró el contenedor '.swiper'.");
+                return;
+            }
+
+            // 4. Iniciar experiencia
+            console.log("MUDI: Lanzando experiencia...");
+            mudiExperience.experienceOn(numbersOnly, fatherContainer);
+
+        } catch (error) {
+            console.error("MUDI: Error inesperado en el bloque de inicio:", error);
+        }
+    }, 2500);
 
 };
-
-
